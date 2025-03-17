@@ -3,16 +3,19 @@
 {% block content %}
 
 <h1 class=" mb-6 text-3xl">{{project.name }}</h1>
+{% if project.description %}
+    <p class="mb-6">{{ project.description}}</p>
+{% endif %}
 
-            <a href="#" class="py-4 px-8 bg-emerald-950 text-white inline-block">Add todolist</a>
+            <a href="{% url 'todolist:add' project.id %}" class="py-4 px-8 bg-emerald-950 text-white inline-block">Add todolist</a>
             <a href="{% url 'project:edit' project.id %}" class="py-4 px-8 bg-sky-600 text-white inline-block">Edit</a>
             <a href="{% url 'project:delete' project.id %}" class="py-4 px-8 bg-amber-600 text-white inline-block">Delete</a>
 
             <div class="mt-6 grid grid-cols-4 gap-4">
-                {% for todolist in todolists %}
+                {% for todolist in project.todolists.all %}
                     <div class="py-6 px-6 bg-emerald-400">
-                        <a href="#">
-                            <!-- {% url 'project:todolist' todolist.id %} -->
+                        <a href="{% url 'todolist:todolist' project.id todolist.id %}">
+                            
                             <h2 class="mb-4 text-xl">{{ todolist.name }}</h2>
                             <p class="text-sm text-emerald-400 text-white">
                                 {{ todolist.description }}     
