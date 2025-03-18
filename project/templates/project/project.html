@@ -8,15 +8,18 @@
 {% endif %}
 
             <a href="{% url 'todolist:add' project.id %}" class="py-4 px-8 bg-emerald-950 text-white inline-block">Add todolist</a>
+            <a href="{% url 'project:upload_file' project.id %}" class="py-4 px-8 bg-slate-600 text-white inline-block">Upload File</a>
             <a href="{% url 'project:edit' project.id %}" class="py-4 px-8 bg-sky-600 text-white inline-block">Edit</a>
             <a href="{% url 'project:delete' project.id %}" class="py-4 px-8 bg-amber-600 text-white inline-block">Delete</a>
+
+            <h2 class="mt-6 grid-cols-4 gap-4"> Todo lists</h2>
 
             <div class="mt-6 grid grid-cols-4 gap-4">
                 {% for todolist in project.todolists.all %}
                     <div class="py-6 px-6 bg-emerald-400">
                         <a href="{% url 'todolist:todolist' project.id todolist.id %}">
                             
-                            <h2 class="mb-4 text-xl">{{ todolist.name }}</h2>
+                            <h3 class="mb-4 text-xl">{{ todolist.name }}</h3>
                             <p class="text-sm text-emerald-400 text-white">
                                 {{ todolist.description }}     
                             </p>
@@ -25,6 +28,21 @@
                 {% endfor %}
 
             </div>
+            <h2 class="mt-6 grid-cols-4 gap-4"> Files</h2>
+            <div class="mt-6 grid grid-cols-4 gap-4">
+                {% for projectfile in project.files.all() %}
+                    <div class="py-6 px-6 bg-emerald-400">
+                            <h3 class="mb-4 text-xl">{{ projectfile.name }}</h3>
 
+                            <a href="{{projectfile.attachment.url}}" target="_blank" class="text-sm text-emerald-400 text-white">
+                                Download File
+                            </a>
+                                |
+                            <a href="{% url 'project:delete_file' project.id projectfile.id%}"  class="text-sm text-emerald-400 text-white">
+                                Delete 
+                            </a>
+                    </div>
+                {% endfor %}
+            </div>
 
 {% endblock %}
