@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'project',
     'todolist',
     'account',
+    'task',
     'core',
 ]
 
