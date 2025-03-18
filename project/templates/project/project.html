@@ -8,7 +8,7 @@
 {% endif %}
 
             <a href="{% url 'todolist:add' project.id %}" class="py-4 px-8 bg-emerald-950 text-white inline-block">Add todolist</a>
-            <a href="{% url 'project:upload_file' project.id %}" class="py-4 px-8 bg-slate-600 text-white inline-block">Upload File</a>
+
             <a href="{% url 'project:edit' project.id %}" class="py-4 px-8 bg-sky-600 text-white inline-block">Edit</a>
             <a href="{% url 'project:delete' project.id %}" class="py-4 px-8 bg-amber-600 text-white inline-block">Delete</a>
 
@@ -29,6 +29,8 @@
 
             </div>
             <h2 class="mt-6 grid-cols-4 gap-4"> Files</h2>
+
+            <a href="{% url 'project:upload_file' project.id %}" class="mt-6 py-4 px-8 bg-slate-600 text-white inline-block">Upload File</a>
             <div class="mt-6 grid grid-cols-4 gap-4">
                 {% for projectfile in project.files.all() %}
                     <div class="py-6 px-6 bg-emerald-400">
@@ -38,11 +40,31 @@
                                 Download File
                             </a>
                                 |
-                            <a href="{% url 'project:delete_file' project.id projectfile.id%}"  class="text-sm text-emerald-400 text-white">
+                            <a href="{% url 'project:delete_file' project.id projectfile.id %}"  class="text-sm text-emerald-400 text-white">
                                 Delete 
                             </a>
                     </div>
                 {% endfor %}
             </div>
+
+            <h2 class="mt-6 grid-cols-4 gap-4"> Notes</h2>
+
+            <a href="{% url 'project:add_note' project.id %}" class="mt-6 py-4 px-8 bg-slate-600 text-white inline-block">Add Note</a>
+            <div class="mt-6 grid grid-cols-4 gap-4">
+                {% for note in project.notes.all %}
+                    <div class="py-6 px-6 bg-emerald-400">
+                        <a href="{% url 'project:note_detail' project_id note_id %}">
+                            
+                            <h3 class="mb-4 text-xl">{{ note.name }}</h3>
+                            <p class="text-sm text-emerald-400 text-white">
+                                {{ note.body|truncatechars:50 }}     
+                            </p>
+                        </a>
+                    </div>
+                {% endfor %}
+
+            </div>
+            
+           
 
 {% endblock %}
