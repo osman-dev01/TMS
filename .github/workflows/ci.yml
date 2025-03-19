@@ -25,3 +25,11 @@ jobs:
     - name: Run Tests
       run: |
         python manage.py test
+
+    - name: Deploy to Render
+      run: |
+        curl -fsSL https://render.com/deploy-to-git/ci --output deploy.sh
+        chmod +x deploy.sh
+        ./deploy.sh
+      env:
+        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}  # Use GitHub secrets for secure access

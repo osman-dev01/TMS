@@ -20,7 +20,7 @@ def todolist(request, project_id, pk):
 
 @login_required
 def add(request, project_id):
-    project= Project.objects.filters(created_by = request.user).get(pk=project_id)
+    project= Project.objects.filter(created_by = request.user).get(pk=project_id)
     if request.method =='POST':
         name = request.POST.get('name','')
         description = request.POST.get('description','')
@@ -29,6 +29,7 @@ def add(request, project_id):
             Todolist.objects.create(project=project, name=name, description=description, created_by= request.user)
 
             return redirect(f'/projects/{project_id}/')
+        
     return render(request, 'todolist/add.html',{
         'project': project
     })
@@ -48,7 +49,7 @@ def edit(request, project_id, pk):
             todolist.description= description
             todolist.save()
 
-        return redirect(f'/projects/{project_id}/{pk}/')
+            return redirect(f'/projects/{project_id}/{pk}/')
 
 
     return render(request, 'todolist/edit.html',{
