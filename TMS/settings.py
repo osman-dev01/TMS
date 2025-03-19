@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-rnimw7s44za-@jtrf)6#rqzgbmwm*e5(zi0aarr5(f$36azfyt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['TMS.onrender.com']
+ALLOWED_HOSTS = ['tms-e2cg.onrender.com', 'localhost', '127.0.0.1']
+
 
 AUTH_USER_MODEL ='account.User'
 # Application definition
